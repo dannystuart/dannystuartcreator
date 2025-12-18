@@ -34,12 +34,12 @@ export function ThetaTile({ tile }: ThetaTileProps) {
             </div>
 
             {/* Coming Soon */}
-            <p className="absolute bottom-[35px] right-[35px] font-semibold text-[32px] md:text-[40px] leading-none tracking-[-1px] text-[#fff7f3] mix-blend-overlay opacity-30 z-10">
+            <p className="absolute bottom-[35px] right-[35px] font-semibold text-[32px] md:text-[40px] leading-none tracking-[-1px] text-[#fff7f3] mix-blend-overlay opacity-100 z-10">
                 Coming Soon
             </p>
 
             {/* Content */}
-            <div className="relative z-30 p-[30px] md:p-[40px] flex flex-row items-center gap-[24px] h-full">
+            <div className="relative z-30 p-[30px] md:p-[40px] flex flex-row items-center gap-[24px]">
                 {/* Icon */}
                 <div className="relative w-[80px] h-[80px] shrink-0 rounded-[22px] overflow-hidden shadow-2xl">
                     <img src={imgAppIcon3} alt="Theta" className="w-full h-full object-cover" />

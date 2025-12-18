@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -15,11 +17,13 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
         <Link
             href={tile.href}
             className={cn(
-                "group relative flex flex-col justify-between rounded-[20px] p-[40px] shadow-sm transition-all duration-300 hover:shadow-md",
+                "group relative flex flex-col justify-between rounded-[20px] p-[40px] shadow-sm transition-all duration-500 ease-out",
                 "border border-[#4d4d4d]",
                 "bg-[#171717]", // Fallback
                 "min-h-[220px]", // Minimum height 220px
                 "font-sans",     // Ensure Geist Sans
+                "z-40",          // Second highest stacking order
+                "overflow-hidden", // Clip default background
                 tile.className
             )}
             style={{
@@ -28,9 +32,32 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                 backgroundImage: `
                     ${showTexture ? "url('/noise.png'), " : ""} 
                     radial-gradient(100% 100% at 75% 100%, #505050 0%, #343434 50%, #252525 75%, #171717 100%)
-                `
+                `,
+                transformStyle: 'preserve-3d',
+                perspective: '1000px',
+                transform: 'translateZ(0)',
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateZ(40px) scale(1.05) rotateX(2deg) rotateY(-3deg) rotateZ(3deg)';
+                e.currentTarget.style.boxShadow = '0 30px 60px -12px rgb(0 0 0 / 0.5), 0 18px 36px -18px rgb(0 0 0 / 0.4), 0 -4px 12px -4px rgb(255 255 255 / 0.05)';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateZ(0) scale(1) rotateX(0) rotateY(0) rotateZ(0)';
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)';
             }}
         >
+            {/* Hover Background Gradient - Fades in */}
+            <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out z-0 pointer-events-none"
+                style={{
+                    backgroundImage: `
+                        ${showTexture ? "url('/noise.png'), " : ""} 
+                        radial-gradient(100% 100% at 75% 100%, rgba(0,0,0,1) 0%, #2E2E2E 75%, #1A1A1A 100%)
+                    `
+                }}
+            />
+
             <div className="flex justify-between items-start w-full relative z-10">
                 {/* Left Col */}
                 <div className="flex flex-col gap-6">
@@ -49,7 +76,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                     <p className="font-semibold text-[16px] leading-[28px] text-[#9dea94]">
                         Join 100+ creatives
                     </p>
-                    <div className="text-right text-[16px] leading-[20px] text-[#cfc6c3]">
+                    <div className="text-right text-[16px] leading-[24px] text-[#cfc6c3]">
                         <p>Systems.</p>
                         <p>Experiments.</p>
                         <p>Templates.</p>
@@ -59,7 +86,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
             </div>
 
             {/* Hover Arrow Icon */}
-            <div className="absolute bottom-[40px] right-[40px] text-[#cfc6c3] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+            <div className="absolute bottom-[40px] right-[40px] text-[#cfc6c3] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
                 <ArrowUpRight size={24} />
             </div>
         </Link>

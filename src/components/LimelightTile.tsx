@@ -16,6 +16,7 @@ export function LimelightTile({ tile }: LimelightTileProps) {
                 "border border-[#4d4d4d]",
                 "min-h-[300px]",
                 "overflow-visible", // Allow breakout
+                "z-50",             // Highest stacking order
                 tile.className
             )}
             style={{
