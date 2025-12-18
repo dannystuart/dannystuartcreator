@@ -1,5 +1,5 @@
 export type BreakoutType = 'blob' | 'mockup-ui' | 'code' | 'none';
-export type TileVariant = 'default' | 'image' | 'list' | 'mockup' | 'stat' | 'newsletter' | 'design-engineer' | 'roadmap' | 'materials' | 'limelight';
+export type TileVariant = 'default' | 'image' | 'list' | 'mockup' | 'stat' | 'newsletter' | 'design-engineer' | 'roadmap' | 'materials' | 'limelight' | 'theta';
 
 export interface Tile {
     id: string;
@@ -76,13 +76,13 @@ export const tiles: Tile[] = [
     },
     // Row 3 Right (Wide)
     {
-        id: 'versions',
-        title: 'Version Control',
-        description: 'Maintaining stability across multiple releases.',
+        id: 'theta',
+        title: 'Theta',
+        description: 'Experimental sleep app.',
         href: '#',
         colSpan: 2,
         rowSpan: 1,
-        variant: 'list',
+        variant: 'theta',
         breakoutType: 'none',
         className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
     },

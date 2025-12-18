@@ -7,6 +7,7 @@ import { DesignEngineerTile } from './DesignEngineerTile';
 import { RoadmapTile } from './RoadmapTile';
 import { MaterialsTile } from './MaterialsTile';
 import { LimelightTile } from './LimelightTile';
+import { ThetaTile } from './ThetaTile';
 
 interface BentoTileProps {
     tile: Tile;
@@ -27,6 +28,9 @@ export function BentoTile({ tile }: BentoTileProps) {
     }
     if (tile.variant === 'limelight') {
         return <LimelightTile tile={tile} />;
+    }
+    if (tile.variant === 'theta') {
+        return <ThetaTile tile={tile} />;
     }
 
     const isLink = !!tile.href;
