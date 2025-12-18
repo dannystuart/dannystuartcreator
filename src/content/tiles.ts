@@ -1,0 +1,89 @@
+export type BreakoutType = 'blob' | 'mockup-ui' | 'code' | 'none';
+export type TileVariant = 'default' | 'image' | 'list' | 'mockup' | 'stat' | 'newsletter' | 'design-engineer' | 'roadmap' | 'materials' | 'limelight';
+
+export interface Tile {
+    id: string;
+    title: string;
+    description: string;
+    href: string;
+    colSpan: number; // 1 to 4
+    rowSpan: number; // 1 to 2
+    variant: TileVariant;
+    breakoutType: BreakoutType;
+    className?: string; // For explicit grid placement if needed, though simpler to let auto-flow work with spans
+}
+
+export const tiles: Tile[] = [
+    // Row 1 & 2 Left (Tall) - ROADMAP (Was Right)
+    {
+        id: 'roadmap',
+        title: '2026 Q1',
+        description: '2026 content strategy. Big things coming.',
+        href: '',
+        colSpan: 1,
+        rowSpan: 2,
+        variant: 'roadmap',
+        breakoutType: 'none',
+        className: 'lg:col-span-1 lg:row-span-2'
+    },
+    // Row 1 Center (Wide)
+    {
+        id: 'project-1',
+        title: 'AI x Design',
+        description: 'Gain the advantage. Every 2 weeks.',
+        href: '#',
+        colSpan: 2,
+        rowSpan: 1,
+        variant: 'newsletter',
+        breakoutType: 'none',
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+    },
+    // Row 1 & 2 Right (Tall) - HIRE ME (Was Left)
+    {
+        id: 'intro',
+        title: 'Hire me',
+        description: 'Apps + Websites. Founders, let’s talk.',
+        href: '/now',
+        colSpan: 1,
+        rowSpan: 2,
+        variant: 'design-engineer',
+        breakoutType: 'none',
+        className: 'lg:col-span-1 lg:row-span-2'
+    },
+    // Row 2 Center (Wide)
+    {
+        id: 'limelight',
+        title: 'Limelight',
+        description: 'A minimal design system for enterprise dashboards.',
+        href: '#',
+        colSpan: 2,
+        rowSpan: 1,
+        variant: 'limelight',
+        breakoutType: 'none',
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+    },
+    // Row 3 Left (Wide) - NEW MATERIALS TILE
+    {
+        id: 'materials',
+        title: 'Materials¹',
+        description: 'Visual ingredients for creative explorers.',
+        href: '#',
+        colSpan: 2,
+        rowSpan: 1,
+        variant: 'materials',
+        breakoutType: 'none',
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+    },
+    // Row 3 Right (Wide)
+    {
+        id: 'versions',
+        title: 'Version Control',
+        description: 'Maintaining stability across multiple releases.',
+        href: '#',
+        colSpan: 2,
+        rowSpan: 1,
+        variant: 'list',
+        breakoutType: 'none',
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+    },
+];
