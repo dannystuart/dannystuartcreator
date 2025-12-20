@@ -14,7 +14,7 @@ export function ThetaTile({ tile }: ThetaTileProps) {
     return (
         <div
             className={cn(
-                "group relative w-full h-full overflow-hidden rounded-[20px] bg-[#1d1d1d] border border-[#4d4d4d]",
+                "group relative w-full h-full overflow-hidden rounded-[20px] bg-[#1d1d1d] border border-[#4d4d4d] max-lg:h-[380px]",
                 tile.className
             )}
             data-name="Theta"
@@ -39,7 +39,7 @@ export function ThetaTile({ tile }: ThetaTileProps) {
             </p>
 
             {/* Content */}
-            <div className="relative z-30 p-[30px] md:p-[40px] flex flex-row items-center gap-[24px]">
+            <div className="relative z-30 p-[30px] md:p-[40px] lg:max-[1200px]:p-8 flex flex-row items-center gap-[24px]">
                 {/* Icon */}
                 <div className="relative w-[80px] h-[80px] shrink-0 rounded-[22px] overflow-hidden shadow-2xl">
                     <img src={imgAppIcon3} alt="Theta" className="w-full h-full object-cover" />

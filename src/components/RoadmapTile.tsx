@@ -10,9 +10,9 @@ export function RoadmapTile({ tile }: RoadmapTileProps) {
     return (
         <div
             className={cn(
-                "group relative flex flex-col justify-between overflow-hidden rounded-[20px] bg-[#141414] p-[40px] transition-all duration-300 hover:shadow-lg",
+                "group relative flex flex-col justify-between overflow-hidden rounded-[20px] bg-[#141414] p-[40px] lg:max-[1200px]:p-8 transition-all duration-300 hover:shadow-lg",
                 "border border-[#4d4d4d]",
-                "min-h-[626px] h-full", // Height from Figma metadata
+                "lg:min-h-[626px] max-lg:h-[auto] h-full max-[500px]:h-auto max-[500px]:min-h-0 max-[500px]:max-h-none", // Height from Figma metadata
                 tile.className
             )}
         >
@@ -55,17 +55,17 @@ export function RoadmapTile({ tile }: RoadmapTileProps) {
                             Updating website for newlayer.co
                         </p>
                         <p className="text-[#cfc6c3] text-[16px] leading-[22px] opacity-60 font-normal font-sans">
-                            Teaching course the ins and outs
+                            Preparing for Materials genCLASS
                         </p>
                         <p className="text-[#cfc6c3] text-[16px] leading-[22px] opacity-60 font-normal font-sans">
-                            Teaching course the ins and outs
+                            Building Materials landing page
                         </p>
                     </div>
                 </div>
 
                 {/* Bottom Section: Q1 Title */}
                 <div>
-                    <h3 className="font-semibold text-[32px] leading-[24px] tracking-[-1px] text-[#fff7f3] font-sans">
+                    <h3 className="font-semibold mt-[60px] text-[32px] leading-[24px] tracking-[-1px] text-[#fff7f3] font-sans">
                         2026 Q1
                     </h3>
                 </div>

@@ -22,18 +22,24 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
-        if (isExpanded) {
+        if (isExpanded && !showSubscribe) {
             timer = setTimeout(() => {
                 setShowSubscribe(true);
             }, 4000);
-        } else {
-            setShowSubscribe(false);
-            // Reset form when closed
-            setStatus('idle');
-            setEmail('');
-            setErrorMessage('');
         }
         return () => clearTimeout(timer);
+    }, [isExpanded, showSubscribe]);
+
+    // Lock body scroll when expanded
+    useEffect(() => {
+        if (isExpanded) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isExpanded]);
 
     const handleSubscribe = async () => {
@@ -62,6 +68,11 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
             setTimeout(() => {
                 setIsExpanded(false);
             }, 3000); // Close tile after 3s of success
+
+            setTimeout(() => {
+                setStatus('idle');
+                setEmail('');
+            }, 3500); // Reset form state after tile closes
         } catch (error) {
             setStatus('error');
             setErrorMessage('Something went wrong. Please try again.');
@@ -74,10 +85,10 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                 layoutId={`newsletter-tile-${tile.id}`}
                 onClick={() => setIsExpanded(true)}
                 className={cn(
-                    "group relative flex flex-col justify-between rounded-[20px] p-[40px] shadow-sm cursor-pointer",
+                    "group relative flex flex-col justify-between rounded-[20px] p-[40px] lg:max-[1200px]:p-8 shadow-sm cursor-pointer",
                     "border border-[#4d4d4d]",
                     "bg-[#171717]", // Fallback
-                    "min-h-[220px]", // Minimum height 220px
+                    "lg:min-h-[220px] max-lg:h-[380px]", // Minimum height 220px
                     "font-sans",     // Ensure Geist Sans
                     "z-40",          // Second highest stacking order
                     "overflow-hidden", // Clip default background
@@ -107,19 +118,19 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
             >
                 {/* Hover Background Gradient - Fades in */}
                 <motion.div
-                    className="absolute inset-0 z-0 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
+                    className={cn(
+                        "absolute inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-500",
+                        !isExpanded && "group-hover:opacity-100"
+                    )}
                     style={{
                         backgroundImage: `
                             ${showTexture ? "url('/noise.png'), " : ""} 
-                            radial-gradient(100% 100% at 75% 100%, rgba(0,0,0,1) 0%, #2E2E2E 75%, #1A1A1A 100%)
+                            radial-gradient(100% 100% at 75% 100%, rgba(10,10,10,1) 0%, #3a3a3a 75%, #222 100%)
                         `
                     }}
                 />
 
-                <motion.div className="flex justify-between items-start w-full relative z-10" layout="position">
+                <motion.div className="flex justify-between items-start w-full relative z-10 max-[500px]:flex-col max-[500px]:gap-6 max-[500px]:items-center max-[500px]:text-center" layout="position">
                     {/* Left Col */}
                     <div className="flex flex-col gap-6">
                         <motion.h3
@@ -141,16 +152,16 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                     {/* Right Col */}
                     <motion.div
                         layoutId={`newsletter-stats-${tile.id}`}
-                        className="flex flex-col items-end gap-1"
+                        className="flex flex-col items-end gap-1 max-[500px]:items-center max-[500px]:w-full"
                     >
-                        <p className="font-semibold text-[16px] leading-[28px] text-[#9dea94]">
+                        <p className="font-semibold text-[16px] leading-[28px] text-[#9dea94] max-[500px]:text-center">
                             Join 100+ creatives
                         </p>
-                        <div className="text-right text-[16px] leading-[20px] text-[#cfc6c3]">
-                            <p>Systems.</p>
-                            <p>Experiments.</p>
-                            <p>Templates.</p>
-                            <p>News.</p>
+                        <div className="w-full text-center min-[501px]:text-right text-[16px] leading-[20px] text-[#cfc6c3]">
+                            <p className="mb-2">Systems.</p>
+                            <p className="mb-2">Experiments.</p>
+                            <p className="mb-2">Templates.</p>
+                            <p className="mb-2">News.</p>
                         </div>
                     </motion.div>
                 </motion.div>
@@ -177,10 +188,10 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                 setIsExpanded(false);
                             }}
                         />
-                        <div className="fixed inset-0 z-[70] pointer-events-none flex items-center justify-center p-4 md:p-8 lg:p-12">
+                        <div className="fixed inset-0 z-[70] pointer-events-none flex items-center justify-center p-4 max-[500px]:p-0 md:p-8 lg:p-12">
                             <motion.div
                                 layoutId={`newsletter-tile-${tile.id}`}
-                                className="w-full max-w-[1400px] h-full max-h-[90vh] bg-[#171717] overflow-hidden relative pointer-events-auto flex flex-col rounded-[32px] shadow-2xl"
+                                className="w-full max-w-[1400px] h-full max-h-[90vh] bg-[#171717] overflow-hidden max-[500px]:overflow-y-auto relative pointer-events-auto flex flex-col rounded-[32px] max-[500px]:max-h-none max-[500px]:h-full max-[500px]:rounded-none shadow-2xl"
                                 style={{
                                     border: '1px solid #333',
                                 }}
@@ -196,16 +207,96 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                     <X size={32} strokeWidth={1.5} />
                                 </button>
 
+
+
+                                {/* Static Background (Always present as base) */}
+                                <div className="absolute inset-0 z-0 pointer-events-none bg-black" />
+
+                                {/* Video Overlay (Fades out after playing) */}
+                                {!hasPlayed && (
+                                    <motion.div
+                                        className="absolute inset-0 z-10 select-none pointer-events-none"
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                                    >
+                                        <video
+                                            autoPlay
+                                            muted
+                                            playsInline
+                                            onEnded={() => setHasPlayed(true)}
+                                            className="w-full h-full object-cover"
+                                        >
+                                            <source src="/_videos/Scooter-Video.mov" type="video/quicktime" />
+                                            <source src="/_videos/Scooter-Video.mov" type="video/mp4" />
+                                        </video>
+
+                                        {/* Overlay to ensure text readability against video */}
+                                        <div className="absolute inset-0 bg-black/40" />
+                                    </motion.div>
+                                )}
+
+                                {/* Expanded Content - Matching Default Tile Structure */}
+                                <motion.div className="p-[40px] max-[500px]:pt-24 md:p-[80px] h-full w-full relative z-10 flex flex-col justify-between" layout="position">
+                                    <div className="flex justify-between items-start w-full max-[500px]:flex-col max-[500px]:items-center max-[500px]:text-center max-[500px]:gap-6">
+                                        {/* Left Col */}
+                                        <div className="flex flex-col gap-8">
+                                            <motion.h3
+                                                layoutId={`newsletter-title-${tile.id}`}
+                                                className="font-semibold text-[48px] md:text-[48px] leading-[1.1] tracking-[-2px] text-[#fff7f3]"
+                                            >
+                                                AI x Design
+                                            </motion.h3>
+                                            <motion.div
+                                                layoutId={`newsletter-desc-${tile.id}`}
+                                                className="font-normal text-[20px] md:text-[20px] leading-tight text-[#cfc6c3]"
+                                            >
+                                                <p>Gain the advantage.</p>
+                                                <p>Every 2 weeks.</p>
+                                                <motion.p layoutId={`newsletter-sub-${tile.id}`} className="text-[#f398a9] mt-4">Straight to your inbox.</motion.p>
+                                            </motion.div>
+                                        </div>
+
+                                        {/* Right Col */}
+                                        <motion.div
+                                            layoutId={`newsletter-stats-${tile.id}`}
+                                            className="flex flex-col items-end gap-2 mt-4 max-[500px]:items-center max-[500px]:w-full"
+                                        >
+                                            <p className="font-semibold text-[16px] md:text-[16px] leading-relaxed text-[#9dea94] max-[500px]:text-center">
+                                                Join 100+ creatives
+                                            </p>
+                                            <div className="w-full text-center min-[501px]:text-right text-[16px] md:text-[16px] leading-relaxed text-[#cfc6c3]">
+                                                <p className="mb-2">Systems.</p>
+                                                <p className="mb-2">Experiments.</p>
+                                                <p className="mb-2">Templates.</p>
+                                                <p className="mb-2">News.</p>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+
+                                    {/* Arrow for consistency, maybe larger or hidden? Keeping it but larger for now as part of "same content" */}
+
+                                </motion.div>
+
                                 {/* Subscribe Modal/Card - Centered, No Overlay */}
                                 <AnimatePresence>
                                     {showSubscribe && (
-                                        <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none">
+                                        <div className={cn(
+                                            "absolute inset-0 z-50 flex items-center justify-center pointer-events-none",
+                                            "max-[500px]:relative max-[500px]:inset-auto max-[500px]:pointer-events-auto max-[500px]:flex-col max-[500px]:justify-start max-[500px]:py-0 max-[500px]:px-4 max-[500px]:z-20",
+                                            "max-[500px]:bg-transparent"
+                                        )}>
                                             <motion.div
-                                                initial={{ clipPath: 'inset(0 0 0 100%)' }}
+                                                initial={{ clipPath: hasPlayed ? 'inset(0 0 0 0%)' : 'inset(0 0 0 100%)' }}
                                                 animate={{ clipPath: 'inset(0 0 0 0%)' }}
                                                 exit={{ opacity: 0 }}
                                                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} // Custom ease for smooth "slow" reveal
-                                                className="w-[370px] bg-white rounded-[20px] pt-[32px] pb-[48px] px-[35px] shadow-2xl pointer-events-auto overflow-hidden relative flex flex-col gap-[40px] items-center"
+                                                className={cn(
+                                                    "w-[370px] bg-white rounded-[20px] pt-[32px] pb-[48px] px-[35px] shadow-2xl pointer-events-auto overflow-hidden relative flex flex-col gap-[40px] items-center",
+                                                    "ml-[24px] mr-[24px] mt-[180px] xl:mt-0",
+                                                    "max-[500px]:w-full max-[500px]:mx-0 max-[500px]:mt-8 max-[500px]:mb-12",
+                                                    "max-[500px]:bg-[#f0f0f0] max-[500px]:text-black"
+                                                )}
                                             >
                                                 <div className="flex flex-col gap-[12px] text-center w-full text-black">
                                                     <h4 className="font-semibold text-[24px] tracking-[-0.24px]">Use AI to design better,&nbsp;and&nbsp;faster.</h4>
@@ -260,74 +351,6 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                         </div>
                                     )}
                                 </AnimatePresence>
-
-                                {/* Static Background (Always present as base) */}
-                                <div className="absolute inset-0 z-0 pointer-events-none bg-black" />
-
-                                {/* Video Overlay (Fades out after playing) */}
-                                <motion.div
-                                    className="absolute inset-0 z-10 select-none pointer-events-none"
-                                    animate={{ opacity: hasPlayed ? 0 : 1 }}
-                                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                                >
-                                    <video
-                                        autoPlay
-                                        muted
-                                        playsInline
-                                        onEnded={() => setHasPlayed(true)}
-                                        className="w-full h-full object-cover"
-                                    >
-                                        <source src="/_videos/Scooter-Video.mov" type="video/quicktime" />
-                                        <source src="/_videos/Scooter-Video.mov" type="video/mp4" />
-                                    </video>
-
-                                    {/* Overlay to ensure text readability against video */}
-                                    <div className="absolute inset-0 bg-black/40" />
-                                </motion.div>
-
-                                {/* Expanded Content - Matching Default Tile Structure */}
-                                <motion.div className="p-[40px] md:p-[80px] h-full w-full relative z-10 flex flex-col justify-between" layout="position">
-                                    <div className="flex justify-between items-start w-full">
-                                        {/* Left Col */}
-                                        <div className="flex flex-col gap-8">
-                                            <motion.h3
-                                                layoutId={`newsletter-title-${tile.id}`}
-                                                className="font-semibold text-[48px] md:text-[48px] leading-[1.1] tracking-[-2px] text-[#fff7f3]"
-                                            >
-                                                AI x Design
-                                            </motion.h3>
-                                            <motion.div
-                                                layoutId={`newsletter-desc-${tile.id}`}
-                                                className="font-normal text-[20px] md:text-[20px] leading-tight text-[#cfc6c3]"
-                                            >
-                                                <p>Gain the advantage.</p>
-                                                <p>Every 2 weeks.</p>
-                                                <motion.p layoutId={`newsletter-sub-${tile.id}`} className="text-[#f398a9] mt-4">Straight to your inbox.</motion.p>
-                                            </motion.div>
-                                        </div>
-
-                                        {/* Right Col */}
-                                        <motion.div
-                                            layoutId={`newsletter-stats-${tile.id}`}
-                                            className="flex flex-col items-end gap-2 mt-4"
-                                        >
-                                            <p className="font-semibold text-[16px] md:text-[16px] leading-relaxed text-[#9dea94]">
-                                                Join 100+ creatives
-                                            </p>
-                                            <div className="text-right text-[16px] md:text-[16px] leading-relaxed text-[#cfc6c3]">
-                                                <p>Systems.</p>
-                                                <p>Experiments.</p>
-                                                <p>Templates.</p>
-                                                <p>News.</p>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-
-                                    {/* Arrow for consistency, maybe larger or hidden? Keeping it but larger for now as part of "same content" */}
-                                    <div className="self-end text-[#cfc6c3]">
-                                        <ArrowUpRight size={48} />
-                                    </div>
-                                </motion.div>
                             </motion.div>
                         </div >
                     </>

@@ -12,8 +12,8 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
         <Link
             href={tile.href}
             className={cn(
-                "group relative flex flex-col justify-end overflow-hidden rounded-[20px] bg-[#1a1a1a] p-[40px] transition-all duration-300 hover:shadow-lg",
-                "min-h-[626px] h-full", // Matching height from Roadmap/Figma reference
+                "group relative flex flex-col justify-end overflow-hidden rounded-[20px] bg-[#1a1a1a] p-[40px] lg:max-[1200px]:p-8 transition-all duration-300 hover:shadow-2xl",
+                "lg:min-h-[626px] max-lg:h-[380px] h-full", // Matching height from Roadmap/Figma reference
                 tile.className
             )}
         >
@@ -24,11 +24,13 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
                     alt=""
                     className={cn(
                         "w-[120%] h-[120%] object-cover opacity-80 transition-transform duration-700 ease-out",
-                        "group-hover:scale-105 group-hover:rotate-1",
+                        "group-hover:scale-110 group-hover:rotate-1",
                         "-translate-x-[-50px] -translate-y-[20px]"
                     )}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1d1d1d] from-[20.773%] to-[66.023%] to-[rgba(0,0,0,0)]" />
+                {/* Hover Gradient Overlay - Fades in */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2C3B2A] from-[20.773%] to-[66.023%] to-[rgba(0,0,0,0)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
 
             {/* Content */}
@@ -57,7 +59,9 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
 
             {/* Hover Arrow Icon */}
             <div className="absolute top-[40px] right-[40px] text-[#cfc6c3] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
-                <ArrowUpRight size={24} />
+                <div className="bg-white/10 p-3 rounded-full backdrop-blur-sm">
+                    <ArrowUpRight size={24} />
+                </div>
             </div>
         </Link>
     );

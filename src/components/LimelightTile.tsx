@@ -12,9 +12,9 @@ export function LimelightTile({ tile }: LimelightTileProps) {
         <Link
             href={tile.href}
             className={cn(
-                "group relative flex flex-col justify-end rounded-[20px] p-[40px] shadow-sm transition-all duration-300 hover:shadow-md",
+                "group relative flex flex-col justify-end rounded-[20px] p-[40px] lg:max-[1200px]:p-8 shadow-sm transition-all duration-300 hover:shadow-md",
                 "border border-[#4d4d4d]",
-                "min-h-[300px]",
+                "lg:min-h-[300px] max-lg:max-h-[380px] max-[500px]:h-[190px] max-lg:h-[190px]",
                 "overflow-visible", // Allow breakout
                 "z-50",             // Highest stacking order
                 tile.className
@@ -24,7 +24,7 @@ export function LimelightTile({ tile }: LimelightTileProps) {
             }}
         >
             {/* Character Image - Positioned at bottom center, overflowing top */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[450px] pointer-events-none z-10">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[450px] max-[500px]:w-[200px] max-[500px]:h-[225px] pointer-events-none z-10">
                 <img
                     src="/assets/character-image.png"
                     alt=""
@@ -33,9 +33,7 @@ export function LimelightTile({ tile }: LimelightTileProps) {
             </div>
 
             {/* Hover Arrow Icon */}
-            <div className="absolute bottom-[40px] right-[40px] text-[#cfc6c3] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
-                <ArrowUpRight size={24} />
-            </div>
+
         </Link>
     );
 }

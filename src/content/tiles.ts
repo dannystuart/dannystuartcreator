@@ -24,7 +24,7 @@ export const tiles: Tile[] = [
         rowSpan: 2,
         variant: 'roadmap',
         breakoutType: 'none',
-        className: 'lg:col-span-1 lg:row-span-2'
+        className: 'md:col-span-2 lg:col-span-1 lg:row-span-2 order-6 lg:order-none'
     },
     // Row 1 Center (Wide)
     {
@@ -36,19 +36,19 @@ export const tiles: Tile[] = [
         rowSpan: 1,
         variant: 'newsletter',
         breakoutType: 'none',
-        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1 order-1 lg:order-none'
     },
     // Row 1 & 2 Right (Tall) - HIRE ME (Was Left)
     {
         id: 'intro',
         title: 'Hire me',
         description: 'Apps + Websites. Founders, let’s talk.',
-        href: '/now',
+        href: 'https://www.newlayer.co',
         colSpan: 1,
         rowSpan: 2,
         variant: 'design-engineer',
         breakoutType: 'none',
-        className: 'lg:col-span-1 lg:row-span-2'
+        className: 'md:col-span-2 lg:col-span-1 lg:row-span-2 order-3 lg:order-none'
     },
     // Row 2 Center (Wide)
     {
@@ -60,19 +60,19 @@ export const tiles: Tile[] = [
         rowSpan: 1,
         variant: 'limelight',
         breakoutType: 'none',
-        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1 order-2 lg:order-none'
     },
     // Row 3 Left (Wide) - NEW MATERIALS TILE
     {
         id: 'materials',
         title: 'Materials¹',
         description: 'Visual ingredients for creative explorers.',
-        href: '#',
+        href: 'https://dannystuart.gumroad.com/l/Materials-Edition-1',
         colSpan: 2,
         rowSpan: 1,
         variant: 'materials',
         breakoutType: 'none',
-        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1 order-4 lg:order-none'
     },
     // Row 3 Right (Wide)
     {
@@ -84,6 +84,6 @@ export const tiles: Tile[] = [
         rowSpan: 1,
         variant: 'theta',
         breakoutType: 'none',
-        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1'
+        className: 'md:col-span-2 lg:col-span-2 lg:row-span-1 order-5 lg:order-none'
     },
 ];
