@@ -17,6 +17,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
     const [hasPlayed, setHasPlayed] = useState(false);
     const [showSubscribe, setShowSubscribe] = useState(false);
     const [email, setEmail] = useState('');
+    const [honeypot, setHoneypot] = useState(''); // Honeypot field for spam protection
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -55,7 +56,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
             const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({ email, honeypot }),
             });
 
             const data = await res.json();
@@ -316,6 +317,18 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                                         </div>
                                                     ) : (
                                                         <>
+                                                            {/* Honeypot field - hidden from users, visible to bots */}
+                                                            <input
+                                                                type="text"
+                                                                name="website"
+                                                                value={honeypot}
+                                                                onChange={(e) => setHoneypot(e.target.value)}
+                                                                autoComplete="off"
+                                                                tabIndex={-1}
+                                                                aria-hidden="true"
+                                                                className="absolute opacity-0 pointer-events-none h-0"
+                                                            />
+
                                                             <div className="flex flex-col gap-[9px] w-full text-left">
                                                                 <label className="text-[#6e6e6e] text-[14px] font-medium">Your Email</label>
                                                                 <input

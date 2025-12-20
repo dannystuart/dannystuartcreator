@@ -4,7 +4,7 @@ import { tiles } from "@/content/tiles";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: 'Home',
+    title: 'Danny Stuart | Product Designer & Creator',
     description: 'Product Designer crafting beautiful interfaces and AI-powered experiences. Creator of Materials, AI x Design newsletter, and Theta.',
     alternates: {
         canonical: 'https://dannystuart.com',
@@ -37,6 +37,7 @@ export default function Home() {
                         href="https://www.threads.net/@dannystuart"
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Follow Danny Stuart on Threads"
                         className="hover:opacity-80 transition-opacity"
                     >
                         <img

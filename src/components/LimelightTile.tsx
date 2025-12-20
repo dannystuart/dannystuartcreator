@@ -26,7 +26,8 @@ export function LimelightTile({ tile }: LimelightTileProps) {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[450px] max-[500px]:w-[200px] max-[500px]:h-[225px] pointer-events-none z-10">
                 <img
                     src="/assets/character-image.png"
-                    alt=""
+                    alt="Limelight app character"
+                    loading="lazy"
                     className="w-full h-full object-cover object-top opacity-100"
                 />
             </div>

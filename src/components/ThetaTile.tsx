@@ -26,10 +26,10 @@ export function ThetaTile({ tile }: ThetaTileProps) {
 
             {/* Background Shapes */}
             <div className="absolute right-[-10%] bottom-[-10%] w-[80%] h-[80%] opacity-100 pointer-events-none overflow-hidden z-0">
-                <img src={imgGroup2} alt="" className="absolute right-0 bottom-0 w-full h-full object-contain mix-blend-normal rotate-[160deg]" style={{ transform: 'scale(1.5)' }} />
+                <img src={imgGroup2} alt="Decorative gradient shape" className="absolute right-0 bottom-0 w-full h-full object-contain mix-blend-normal rotate-[160deg]" style={{ transform: 'scale(1.5)' }} />
             </div>
             <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] opacity-100 pointer-events-none ml-0 mt-0 z-0">
-                <img src={imgGroup1} alt="" className="w-full h-full object-contain" />
+                <img src={imgGroup1} alt="Decorative gradient shape" className="w-full h-full object-contain" />
             </div>
 
             {/* Coming Soon */}

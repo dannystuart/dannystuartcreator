@@ -6,11 +6,13 @@ import { PersonStructuredData, WebsiteStructuredData } from "@/components/Struct
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
+    display: "swap",
 });
 
 const playfair = Playfair_Display({
     variable: "--font-playfair",
     subsets: ["latin"],
+    display: "swap",
 });
 
 export const metadata: Metadata = {

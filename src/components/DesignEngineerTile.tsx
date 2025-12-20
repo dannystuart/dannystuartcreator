@@ -21,7 +21,7 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
             <div className="absolute inset-0 z-0">
                 <img
                     src="/assets/design-engineer-bg.png"
-                    alt=""
+                    alt="Product design workspace background"
                     className={cn(
                         "w-[120%] h-[120%] object-cover opacity-80 transition-transform duration-700 ease-out",
                         "group-hover:scale-110 group-hover:rotate-1",
