@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
 

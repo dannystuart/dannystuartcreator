@@ -1,6 +1,15 @@
 import { BentoGrid } from "@/components/BentoGrid";
 import { BentoTile } from "@/components/BentoTile";
 import { tiles } from "@/content/tiles";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'Home',
+    description: 'Product Designer crafting beautiful interfaces and AI-powered experiences. Creator of Materials, AI x Design newsletter, and Theta.',
+    alternates: {
+        canonical: 'https://dannystuart.com',
+    },
+};
 
 export default function Home() {
     return (

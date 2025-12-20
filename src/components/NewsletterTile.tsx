@@ -73,7 +73,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                 setStatus('idle');
                 setEmail('');
             }, 3500); // Reset form state after tile closes
-        } catch (error) {
+        } catch {
             setStatus('error');
             setErrorMessage('Something went wrong. Please try again.');
         }
@@ -311,7 +311,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                                                     <path d="M20 6L9 17l-5-5" />
                                                                 </svg>
                                                             </div>
-                                                            <h5 className="text-[20px] font-semibold text-black mb-2">You're on the list!</h5>
+                                                            <h5 className="text-[20px] font-semibold text-black mb-2">You&apos;re on the list!</h5>
                                                             <p className="text-[#6e6e6e]">Keep an eye on your inbox.</p>
                                                         </div>
                                                     ) : (

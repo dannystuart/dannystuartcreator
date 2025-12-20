@@ -34,7 +34,7 @@ export function BentoTile({ tile }: BentoTileProps) {
     }
 
     const isLink = !!tile.href;
-    const Wrapper = isLink ? Link : 'div' as any;
+    const Wrapper = (isLink ? Link : 'div') as React.ElementType;
 
     return (
         <Wrapper
@@ -70,7 +70,7 @@ export function BentoTile({ tile }: BentoTileProps) {
                             <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
                         </div>
                         <div className="space-y-2 font-mono text-xs text-slate-400">
-                            <p><span className="text-purple-400">import</span> React <span className="text-purple-400">from</span> 'react';</p>
+                            <p><span className="text-purple-400">import</span> React <span className="text-purple-400">from</span> &apos;react&apos;;</p>
                             <p><span className="text-blue-400">const</span> <span className="text-yellow-400">App</span> = () ={'>'} {'{'}</p>
                             <p className="pl-4">return (</p>
                             <p className="pl-8 text-green-400">{'<div />'}</p>
