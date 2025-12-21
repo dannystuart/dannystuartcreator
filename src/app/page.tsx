@@ -29,6 +29,7 @@ export default function Home() {
             {/* Footer */}
             <footer className="mt-16 md:mt-16 pb-12 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-500 text-sm">
                 <div>
+                    <p className="font-medium text-lg">No AI was harmed in the making of this website.</p>
                     <p>© 2026 Danny Stuart. All rights reserved.</p>
                 </div>
                 <div className="flex items-center gap-3">

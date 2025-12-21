@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
@@ -20,6 +20,8 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
     const [honeypot, setHoneypot] = useState(''); // Honeypot field for spam protection
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState('');
+    const modalRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -30,6 +32,64 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
         }
         return () => clearTimeout(timer);
     }, [isExpanded, showSubscribe]);
+
+    // Custom Smooth Scroll Logic
+    const SCROLL_DELAY = 500; // ms to wait before starting scroll (allows for render)
+    const SCROLL_DURATION = 2000; // ms for the scroll animation to complete (slower = higher value)
+
+    useEffect(() => {
+        if (showSubscribe && window.innerWidth <= 500 && modalRef.current && containerRef.current) {
+
+            const target = modalRef.current;
+            const container = containerRef.current;
+
+            // Helper for easing - easeInOutQuad
+            const easeInOutQuad = (t: number) => {
+                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            };
+
+            const smoothScrollTo = (element: HTMLElement, container: HTMLElement, duration: number) => {
+                // Calculate position relative to the scrollable container
+                const startScrollTop = container.scrollTop;
+                const elementRect = element.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                // The distance from the top of the container's visible area to the element
+                const relativeElementTop = elementRect.top - containerRect.top;
+
+                // Desired scroll position: Element top + current scroll - offset to center
+                // Center offset = (Container Height - Element Height) / 2
+                const centerOffset = (container.clientHeight - elementRect.height) / 2;
+
+                // Target scrollTop
+                const targetScrollTop = startScrollTop + relativeElementTop - centerOffset;
+
+                const distance = targetScrollTop - startScrollTop;
+                let startTime: number | null = null;
+
+                const animation = (currentTime: number) => {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    const ease = easeInOutQuad(progress);
+
+                    container.scrollTop = startScrollTop + (distance * ease);
+
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    }
+                };
+
+                requestAnimationFrame(animation);
+            };
+
+            const timer = setTimeout(() => {
+                smoothScrollTo(target, container, SCROLL_DURATION);
+            }, SCROLL_DELAY);
+
+            return () => clearTimeout(timer);
+        }
+    }, [showSubscribe, containerRef]);
 
     // Lock body scroll when expanded
     useEffect(() => {
@@ -192,6 +252,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                         <div className="fixed inset-0 z-[70] pointer-events-none flex items-center justify-center p-4 max-[500px]:p-0 md:p-8 lg:p-12">
                             <motion.div
                                 layoutId={`newsletter-tile-${tile.id}`}
+                                ref={containerRef}
                                 className="w-full max-w-[1400px] h-full max-h-[90vh] bg-[#171717] overflow-hidden max-[500px]:overflow-y-auto relative pointer-events-auto flex flex-col rounded-[32px] max-[500px]:max-h-none max-[500px]:h-full max-[500px]:rounded-none shadow-2xl"
                                 style={{
                                     border: '1px solid #333',
@@ -288,6 +349,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                             "max-[500px]:bg-transparent"
                                         )}>
                                             <motion.div
+                                                ref={modalRef}
                                                 initial={{ clipPath: hasPlayed ? 'inset(0 0 0 0%)' : 'inset(0 0 0 100%)' }}
                                                 animate={{ clipPath: 'inset(0 0 0 0%)' }}
                                                 exit={{ opacity: 0 }}
