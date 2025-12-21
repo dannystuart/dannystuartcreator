@@ -23,7 +23,7 @@ export function LimelightTile({ tile }: LimelightTileProps) {
             }}
         >
             {/* Character Image - Positioned at bottom center, overflowing top */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[450px] max-[500px]:w-[200px] max-[500px]:h-[225px] pointer-events-none z-10">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[450px] max-[500px]:w-[300px] max-[500px]:h-[300px] pointer-events-none z-10">
                 <img
                     src="/assets/character-image.png"
                     alt="Limelight app character"

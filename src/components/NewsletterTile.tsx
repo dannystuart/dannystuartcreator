@@ -23,6 +23,20 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
     const modalRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
+    // Mobile detection for jiggle animation
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 650);
+        };
+        // Initial check
+        checkMobile();
+        // Listener
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (isExpanded && !showSubscribe) {
@@ -144,6 +158,15 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
         <>
             <motion.div
                 layoutId={`newsletter-tile-${tile.id}`}
+                animate={isMobile && !isExpanded ? {
+                    rotate: [0, -1.5, 1.5, -1.5, 1.5, 0],
+                    transition: {
+                        duration: 0.6,
+                        repeat: Infinity,
+                        repeatDelay: 3.5, // "Every few seconds"
+                        ease: "easeInOut"
+                    }
+                } : {}}
                 onClick={() => setIsExpanded(true)}
                 className={cn(
                     "group relative flex flex-col justify-between rounded-[20px] p-[40px] lg:max-[1200px]:p-8 shadow-sm cursor-pointer",
@@ -167,7 +190,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                     transform: 'translateZ(0)',
                     boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
                 }}
-                whileHover={!isExpanded ? {
+                whileHover={!isExpanded && !isMobile ? {
                     scale: 1.05,
                     rotateX: 2,
                     rotateY: -3,
@@ -181,7 +204,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                 <motion.div
                     className={cn(
                         "absolute inset-0 z-0 pointer-events-none opacity-0 transition-opacity duration-500",
-                        !isExpanded && "group-hover:opacity-100"
+                        !isExpanded && !isMobile && "group-hover:opacity-100"
                     )}
                     style={{
                         backgroundImage: `
@@ -229,7 +252,10 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
 
                 {/* Hover Arrow Icon - Only show when NOT expanded */}
                 {!isExpanded && (
-                    <div className="absolute bottom-[40px] right-[40px] text-[#cfc6c3] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
+                    <div className={cn(
+                        "absolute bottom-[40px] right-[40px] text-[#cfc6c3] opacity-0 transition-all duration-300 transform translate-y-2 z-20",
+                        !isMobile && "group-hover:opacity-100 group-hover:translate-y-0"
+                    )}>
                         <ArrowUpRight size={24} />
                     </div>
                 )}
