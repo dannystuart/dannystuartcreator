@@ -242,7 +242,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                             Join 100+ creatives
                         </p>
                         <div className="w-full text-center min-[501px]:text-right text-[16px] leading-[20px] text-[#cfc6c3]">
-                            <p className="mb-2">Systems.</p>
+                            <p className="mb-2">Workflows.</p>
                             <p className="mb-2">Experiments.</p>
                             <p className="mb-2">Templates.</p>
                             <p className="mb-2">News.</p>
@@ -354,7 +354,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                                 Join 100+ creatives
                                             </p>
                                             <div className="w-full text-center min-[501px]:text-right text-[16px] md:text-[16px] leading-relaxed text-[#cfc6c3]">
-                                                <p className="mb-2">Systems.</p>
+                                                <p className="mb-2">Workflows.</p>
                                                 <p className="mb-2">Experiments.</p>
                                                 <p className="mb-2">Templates.</p>
                                                 <p className="mb-2">News.</p>

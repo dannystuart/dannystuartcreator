@@ -51,7 +51,7 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
                     <h3 className="font-semibold text-[32px] mb-2 text-[#fff7f3] leading-[36px] tracking-[-1px] font-sans">
                         {tile.title}
                     </h3>
-                    <p className="text-[#cfc6c3] text-[18px] leading-[28px] max-w-[90%] font-sans">
+                    <p className="text-[#cfc6c3] text-[18px] leading-[28px] max-w-[90%] font-sans whitespace-pre-line">
                         {tile.description}
                     </p>
                 </div>

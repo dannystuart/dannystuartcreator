@@ -42,7 +42,7 @@ export const tiles: Tile[] = [
     {
         id: 'intro',
         title: 'Hire me',
-        description: 'Apps + Websites. Founders, let’s talk.',
+        description: 'Apps + Websites. Founders,\u00A0let’s talk.',
         href: 'https://www.newlayer.co',
         colSpan: 1,
         rowSpan: 2,

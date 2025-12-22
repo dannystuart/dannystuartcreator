@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <main className="min-h-screen p-4 md:p-8 lg:p-12 max-w-[1400px] mx-auto">
-            <header className="mb-12 md:mb-12 flex justify-center">
-                <h1 className="text-sm font-medium uppercase tracking-[10px] text-slate-900 text-center">
+            <header className="mb-12 md:mb-12 max-lg:mt-8 flex justify-center">
+                <h1 className="text-sm font-medium uppercase tracking-[6px] text-slate-900 text-center">
                     DANNYSTUART.COM
                 </h1>
             </header>
@@ -27,10 +27,10 @@ export default function Home() {
             </BentoGrid>
 
             {/* Footer */}
-            <footer className="mt-16 md:mt-16 pb-12 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-500 text-sm">
-                <div>
-                    <p className="font-medium text-lg">No AI was harmed in the making of this website.</p>
-                    <p>© 2026 Danny Stuart. All rights reserved.</p>
+            <footer className="mt-16 md:mt-16 pb-12 flex flex-col-reverse md:flex-row justify-between items-center gap-8 text-slate-500 text-sm">
+                <div className="text-center md:text-left flex flex-col gap-2">
+                    <p className="font-medium text-lg leading-tight">No AI was harmed in the making of this&nbsp;website.</p>
+                    <p className="text-xs opacity-60">© 2026 Danny Stuart. All rights reserved.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <p>Find me hanging out here →</p>
