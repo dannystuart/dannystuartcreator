@@ -3,6 +3,7 @@ import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { PersonStructuredData, WebsiteStructuredData } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -85,6 +86,7 @@ export default function RootLayout({
                 <WebsiteStructuredData />
                 {children}
                 <SpeedInsights />
+                <Analytics />
             </body>
         </html>
     );
