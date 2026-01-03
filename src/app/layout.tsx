@@ -4,6 +4,7 @@ import "./globals.css";
 import { PersonStructuredData, WebsiteStructuredData } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { MicrosoftClarity } from "@/components/MicrosoftClarity";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -87,6 +88,7 @@ export default function RootLayout({
                 {children}
                 <SpeedInsights />
                 <Analytics />
+                <MicrosoftClarity />
             </body>
         </html>
     );

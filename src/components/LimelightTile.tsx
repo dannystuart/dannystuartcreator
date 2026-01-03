@@ -1,9 +1,6 @@
-'use client';
-
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
-import { track } from '@vercel/analytics/react';
 
 interface LimelightTileProps {
     tile: Tile;
@@ -13,7 +10,6 @@ export function LimelightTile({ tile }: LimelightTileProps) {
     return (
         <Link
             href={tile.href}
-            onClick={() => track('Tile Click', { tile: 'Limelight', type: 'link' })}
             className={cn(
                 "group relative flex flex-col justify-end rounded-[20px] p-[40px] lg:max-[1200px]:p-8 shadow-sm transition-all duration-300 hover:shadow-md",
                 "border border-[#4d4d4d]",

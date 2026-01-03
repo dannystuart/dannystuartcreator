@@ -1,8 +1,5 @@
-'use client';
-
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
-import { track } from '@vercel/analytics/react';
 
 interface RoadmapTileProps {
     tile: Tile;
@@ -11,7 +8,6 @@ interface RoadmapTileProps {
 export function RoadmapTile({ tile }: RoadmapTileProps) {
     return (
         <div
-            onClick={() => track('Tile Click', { tile: 'Roadmap', type: 'interaction' })}
             className={cn(
                 "group relative flex flex-col justify-between overflow-hidden rounded-[20px] bg-[#141414] p-[40px] lg:max-[1200px]:p-8 transition-all duration-300 hover:shadow-lg",
                 "border border-[#4d4d4d]",

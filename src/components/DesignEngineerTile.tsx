@@ -1,10 +1,7 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
-import { track } from '@vercel/analytics/react';
 
 interface DesignEngineerTileProps {
     tile: Tile;
@@ -14,7 +11,6 @@ export function DesignEngineerTile({ tile }: DesignEngineerTileProps) {
     return (
         <Link
             href={tile.href}
-            onClick={() => track('Tile Click', { tile: 'Design Engineer', type: 'link' })}
             className={cn(
                 "group relative flex flex-col justify-end overflow-hidden rounded-[20px] bg-[#1a1a1a] p-[40px] lg:max-[1200px]:p-8 transition-all duration-300 hover:shadow-2xl",
                 "lg:min-h-[626px] max-lg:h-[380px] h-full", // Matching height from Roadmap/Figma reference

@@ -5,7 +5,6 @@ import { ArrowUpRight, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
 import { motion, AnimatePresence } from 'framer-motion';
-import { track } from '@vercel/analytics/react';
 
 interface NewsletterTileProps {
     tile: Tile;
@@ -141,7 +140,6 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
             }
 
             setStatus('success');
-            track('Newsletter Subscribe', { location: 'tile' });
             setTimeout(() => {
                 setIsExpanded(false);
             }, 3000); // Close tile after 3s of success
@@ -169,10 +167,7 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                         ease: "easeInOut"
                     }
                 } : {}}
-                onClick={() => {
-                    setIsExpanded(true);
-                    track('Tile Click', { tile: 'Newsletter', type: 'expand' });
-                }}
+                onClick={() => setIsExpanded(true)}
                 className={cn(
                     "group relative flex flex-col justify-between rounded-[20px] p-[40px] lg:max-[1200px]:p-8 shadow-sm cursor-pointer",
                     "border border-[#4d4d4d]",
@@ -428,7 +423,6 @@ export function NewsletterTile({ tile }: NewsletterTileProps) {
                                                                     type="email"
                                                                     value={email}
                                                                     onChange={(e) => setEmail(e.target.value)}
-                                                                    onFocus={() => track('Newsletter Input Focus', { location: 'tile' })}
                                                                     disabled={status === 'loading'}
                                                                     onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
                                                                     className="w-full bg-[#f6f6f6] border border-[#b9b9b9] rounded-[8px] h-[52px] px-4 text-black focus:outline-none focus:border-[#666] transition-colors shadow-[inset_0px_0px_6px_0px_rgba(0,0,0,0.15)] disabled:opacity-50"
