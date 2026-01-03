@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
+import { track } from '@vercel/analytics/react';
 
 interface MaterialsTileProps {
     tile: Tile;
@@ -11,6 +14,7 @@ export function MaterialsTile({ tile }: MaterialsTileProps) {
     return (
         <Link
             href={tile.href}
+            onClick={() => track('Tile Click', { tile: 'Materials', type: 'link' })}
             className={cn(
                 "group relative flex flex-col justify-start overflow-hidden rounded-[20px] bg-black p-[40px] lg:max-[1200px]:p-8 transition-all duration-300 hover:shadow-2xl",
                 "lg:min-h-[311px] max-lg:h-[380px]",

@@ -1,5 +1,8 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import { Tile } from '@/content/tiles';
+import { track } from '@vercel/analytics/react';
 
 interface ThetaTileProps {
     tile: Tile;
@@ -12,6 +15,7 @@ const imgGroup1 = "/assets/theta/bg-2.svg";
 export function ThetaTile({ tile }: ThetaTileProps) {
     return (
         <div
+            onClick={() => track('Tile Click', { tile: 'Theta', type: 'interaction' })}
             className={cn(
                 "group relative w-full h-full overflow-hidden rounded-[20px] bg-[#1d1d1d] border border-[#4d4d4d] max-lg:h-[380px]",
                 tile.className

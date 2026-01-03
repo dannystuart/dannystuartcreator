@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -8,6 +10,7 @@ import { RoadmapTile } from './RoadmapTile';
 import { MaterialsTile } from './MaterialsTile';
 import { LimelightTile } from './LimelightTile';
 import { ThetaTile } from './ThetaTile';
+import { track } from '@vercel/analytics/react';
 
 interface BentoTileProps {
     tile: Tile;
@@ -39,6 +42,7 @@ export function BentoTile({ tile }: BentoTileProps) {
     return (
         <Wrapper
             href={isLink ? tile.href : undefined}
+            onClick={() => track('Tile Click', { tile: tile.title, type: 'standard' })}
             className={cn(
                 "group relative flex w-full h-full overflow-hidden rounded-[20px] bg-white border border-slate-200 p-6 md:p-8 transition-all duration-300 hover:shadow-lg",
                 "min-h-[300px] flex-col justify-between",
