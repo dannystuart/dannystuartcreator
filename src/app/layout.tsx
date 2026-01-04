@@ -4,7 +4,6 @@ import "./globals.css";
 import { PersonStructuredData, WebsiteStructuredData } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import { MicrosoftClarity } from "@/components/MicrosoftClarity";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -80,6 +79,19 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function(c,l,a,r,i,t,y){
+                                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                            })(window, document, "clarity", "script", "uvqs28z8dp");
+                        `
+                    }}
+                />
+            </head>
             <body
                 className={`${geistSans.variable} ${playfair.variable} antialiased bg-gray-50 text-slate-900`}
             >
@@ -88,7 +100,6 @@ export default function RootLayout({
                 {children}
                 <SpeedInsights />
                 <Analytics />
-                <MicrosoftClarity />
             </body>
         </html>
     );
