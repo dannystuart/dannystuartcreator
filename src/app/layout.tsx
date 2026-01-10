@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { PersonStructuredData, WebsiteStructuredData } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -79,8 +80,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <head>
-                <script
+            <head />
+            <body
+                className={`${geistSans.variable} ${playfair.variable} antialiased bg-gray-50 text-slate-900`}
+            >
+                <Script
+                    id="microsoft-clarity"
+                    strategy="afterInteractive"
                     dangerouslySetInnerHTML={{
                         __html: `
                             (function(c,l,a,r,i,t,y){
@@ -91,10 +97,6 @@ export default function RootLayout({
                         `
                     }}
                 />
-            </head>
-            <body
-                className={`${geistSans.variable} ${playfair.variable} antialiased bg-gray-50 text-slate-900`}
-            >
                 <PersonStructuredData />
                 <WebsiteStructuredData />
                 {children}
